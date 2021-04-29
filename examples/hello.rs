@@ -105,8 +105,8 @@ fn main() -> Result<(), Box<dyn Error>> {
                         &wgpu::RenderPassDescriptor {
                             label: Some("Render pass"),
                             color_attachments: &[
-                                wgpu::RenderPassColorAttachmentDescriptor {
-                                    attachment: &frame.view,
+                                wgpu::RenderPassColorAttachment {
+                                    view: &frame.view,
                                     resolve_target: None,
                                     ops: wgpu::Operations {
                                         load: wgpu::LoadOp::Clear(
@@ -158,6 +158,7 @@ fn main() -> Result<(), Box<dyn Error>> {
 
                 // Submit the work!
                 staging_belt.finish();
+                println!("finished belt");
                 queue.submit(Some(encoder.finish()));
 
                 // Recall unused staging buffers
