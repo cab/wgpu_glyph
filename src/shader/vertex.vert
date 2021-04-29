@@ -20,8 +20,9 @@ void main() {
     float right = right_bottom.x;
     float top = left_top.y;
     float bottom = right_bottom.y;
+    uint gli = uint(gl_VertexIndex);
 
-    switch (gl_VertexIndex) {
+    switch (int(gli)) {
         case 0:
             pos = vec2(left, top);
             f_tex_pos = tex_left_top;

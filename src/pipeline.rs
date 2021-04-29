@@ -280,11 +280,12 @@ fn build<D>(
         });
 
     println!("creating shaders");
-    let vs_module =
-        device.create_shader_module(&wgpu::include_spirv!("shader/vertex.spv"));
+    let vs_module = device
+        .create_shader_module(&wgpu::include_spirv!("shader/vertex.vert.spv"));
 
-    let fs_module = device
-        .create_shader_module(&wgpu::include_spirv!("shader/fragment.spv"));
+    let fs_module = device.create_shader_module(&wgpu::include_spirv!(
+        "shader/fragment.frag.spv"
+    ));
 
     println!("created shaders");
     let raw = device.create_render_pipeline(&wgpu::RenderPipelineDescriptor {
@@ -327,7 +328,7 @@ fn build<D>(
         },
         primitive: wgpu::PrimitiveState {
             topology: wgpu::PrimitiveTopology::TriangleStrip,
-            strip_index_format: None,
+            strip_index_format: Some(wgpu::IndexFormat::Uint32),
             front_face: wgpu::FrontFace::Cw,
             cull_mode: None,
             polygon_mode: wgpu::PolygonMode::Fill,
